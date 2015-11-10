@@ -7,6 +7,14 @@ data frame.
 
 ----
 
+Installation
+
+::
+    pip install oracle_db_query
+
+
+----
+
 Sample usage::
 
     from oracle_db_query import query_to_df
