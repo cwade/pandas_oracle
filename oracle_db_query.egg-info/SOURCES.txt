@@ -1,8 +1,0 @@
-README.rst
-setup.py
-oracle_db_query/oracle_db_query.py
-oracle_db_query.egg-info/PKG-INFO
-oracle_db_query.egg-info/SOURCES.txt
-oracle_db_query.egg-info/dependency_links.txt
-oracle_db_query.egg-info/requires.txt
-oracle_db_query.egg-info/top_level.txt

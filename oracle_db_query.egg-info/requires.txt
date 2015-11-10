@@ -1,3 +1,0 @@
-pandas
-cx_Oracle
-pyaml
