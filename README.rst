@@ -8,12 +8,17 @@ data frame.
 ----
 
 Installation
+------------
 
 ::
+
     pip install oracle_db_query
 
 
 ----
+
+Overview
+--------
 
 Sample usage::
 
