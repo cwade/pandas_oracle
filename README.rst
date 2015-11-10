@@ -35,7 +35,7 @@ Sample config file::
 	    host: >
 	            (DESCRIPTION =
 	                    (ADDRESS = (PROTOCOL = TCP)
-	                               (HOST = servername.williams.edu)
+	                               (HOST = servername.myschool.edu)
 	                               (PORT = 1521)
 	                    )
 	                	(CONNECT_DATA = (SERVER = DEDICATED)
