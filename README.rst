@@ -22,7 +22,7 @@ Overview
 
 Sample usage::
 
-    from oracle_db_query import query_to_df
+    from oracle_db_query.oracle_db_query import query_to_df
 
     query = "select id, name from students where name like '%Oscar%'"
     query_to_df(query, "config.yml")
