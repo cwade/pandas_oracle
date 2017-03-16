@@ -9,11 +9,11 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='oracle_db_tools',
+    name='pandas_oracle',
     version='1.1.0',
     description='Tools for working with an Oracle database from Pandas',
     long_description=long_description,
-    url='https://github.com/cwade/oracle_db_tools',
+    url='https://github.com/cwade/pandas_oracle',
     author='cwade',
     author_email='pysurveyhelper@gmail.com',
     license='MIT',
@@ -27,7 +27,7 @@ setup(
         'Programming Language :: Python :: 3.4',
     ],
     keywords='oracle sql query insert insert_multiple pandas dataframe',
-    packages=['oracle_db_tools'],
+    packages=['pandas oracle'],
     install_requires=['pandas', 'cx_Oracle', 'pyaml'],
     package_data={
         'config_sample': ['config_sample.yml'],
