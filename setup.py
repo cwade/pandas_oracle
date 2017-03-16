@@ -27,7 +27,7 @@ setup(
         'Programming Language :: Python :: 3.4',
     ],
     keywords='oracle sql query insert insert_multiple pandas dataframe',
-    packages=['pandas oracle'],
+    packages=['pandas_oracle'],
     install_requires=['pandas', 'cx_Oracle', 'pyaml'],
     package_data={
         'config_sample': ['config_sample.yml'],
