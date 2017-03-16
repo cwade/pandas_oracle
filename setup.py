@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='oracle_db_query',
-    version='1.0.0',
+    version='1.0.1',
     description='Execute an Oracle SQL query and return result as Pandas data frame',
     long_description=long_description,
     url='https://github.com/cwade/oracle_db_query',
