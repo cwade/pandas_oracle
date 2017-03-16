@@ -1,9 +1,13 @@
-Oracle DB Query
+Oracle DB Tools
 ===============
 
-This package consists of a single method that runs a specified query, passed
-in as a string, on an Oracle database and returns the result to a Pandas 
-data frame.
+This package includes methods for: 
+
+1. Running a specified query, passed in as a string, on an Oracle database and returning the result to a Pandas data frame.
+
+2. Executing a command with no return data.
+
+3. Inserting the contents of a Pandas data frame into an Oracle database table.
 
 ----
 
@@ -12,7 +16,7 @@ Installation
 
 ::
 
-    pip install oracle_db_query
+    pip install oracle_db_tools
 
 
 ----
@@ -22,7 +26,7 @@ Overview
 
 Sample usage::
 
-    from oracle_db_query.oracle_db_query import query_to_df
+    from oracle_db_tools import query_to_df
 
     query = "select id, name from students where name like '%Oscar%'"
     query_to_df(query, "config.yml")
