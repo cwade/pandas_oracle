@@ -1,4 +1,4 @@
-Oracle DB Tools
+Pandas Oracle
 ===============
 
 This package includes methods for: 
@@ -26,7 +26,7 @@ Overview
 
 Sample usage::
 
-    from oracle_db_tools import query_to_df
+    from pandas_oracle.tools import query_to_df
 
     query = "select id, name from students where name like '%Oscar%'"
     query_to_df(query, "config.yml")
