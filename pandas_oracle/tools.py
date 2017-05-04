@@ -10,12 +10,19 @@ def open_connection(config_file):
         cfg = yaml.load(ymlfile)
 
     user = cfg['database']['username']
+    host = cfg['database']['host']
+    if 'sysdba' in cfg['database']:
+            sysdba = cfg['database']['sysdba']
+    else:
+            sysdba = 'n'
     if 'password' in cfg['database']:
             pwd = cfg['database']['password']
     else:
             pwd = getpass.getpass('Database password: ')
-    host = cfg['database']['host']
-    return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host)))
+    if sysdba = 'n':
+            return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host)))
+    if sysdba = 'y':
+            return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host), mode=cx_Oracle.SYSDBA))
 
 def query_to_df(query, config_file):
     con = open_connection(config_file)
