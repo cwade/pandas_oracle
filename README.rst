@@ -16,7 +16,7 @@ Installation
 
 ::
 
-    pip install oracle_db_tools
+    pip install pandas_oracle
 
 
 ----
@@ -26,10 +26,19 @@ Overview
 
 Sample usage::
 
-    from pandas_oracle.tools import query_to_df
-
-    query = "select id, name from students where name like '%Oscar%'"
-    query_to_df(query, "config.yml")
+    from pandas_oracle.tools as oradf
+  
+    query1 = "select id, name from students where name like '%Oscar%'"
+    query2 = "select class,avg(age) from students group by class"
+    ## opening conn
+    conn = oradf.open_connection(query,"config.yml")
+    ## passing the conn object to the query_to_df 
+    df1=query_to_df(query,conn,10000)
+    ## passing the conn object to the query_to_df , without to open again
+    df2=query_to_df(query2,conn,10)
+    ## close connection
+    oradf.clone_connection(conn)
+      
 
 Returns::
     
