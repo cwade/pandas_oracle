@@ -19,9 +19,9 @@ def open_connection(config_file):
             pwd = cfg['database']['password']
     else:
             pwd = getpass.getpass('Database password: ')
-    if sysdba = 'n':
+    if sysdba == 'n':
             return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host)))
-    if sysdba = 'y':
+    if sysdba == 'y':
             return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host), mode=cx_Oracle.SYSDBA))
 
 def query_to_df(query, config_file):
