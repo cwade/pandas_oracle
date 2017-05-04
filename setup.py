@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='pandas_oracle',
-    version='1.1.1',
+    version='1.2.0',
     description='Tools for working with an Oracle database from Pandas',
     long_description=long_description,
     url='https://github.com/cwade/pandas_oracle',
@@ -25,6 +25,8 @@ setup(
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     keywords='oracle sql query insert insert_multiple pandas dataframe',
     packages=['pandas_oracle'],
