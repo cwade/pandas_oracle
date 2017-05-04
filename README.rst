@@ -49,6 +49,7 @@ Sample config file::
     database:
         username: "OGROUCH"
         password: "SECR3TPASSWORD"
+        sysdba: "n"
         host: >
                 (DESCRIPTION =
                         (ADDRESS = (PROTOCOL = TCP)
@@ -63,3 +64,5 @@ Sample config file::
 If you don't wish to store your password in the configuration file, you can 
 omit that line. If a password isn't present in the configuration file, you 
 will be prompted for it at runtime.
+You could choose to run as SYSDBA role or not, if the yaml file does not
+includes the "sysdba" property, the api will connect like a normal user.
