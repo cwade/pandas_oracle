@@ -5,7 +5,7 @@ import getpass
 import yaml
 import pandas as pd
 
-def open_connection(config_file):
+def open_connection(config_file: string):
     """Open a new connection to database
        based on yaml file.
        config_file: name of parameter file
@@ -33,7 +33,7 @@ def open_connection(config_file):
     else :
             return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host)))
 
-def query_to_df(query, conn_db, arraysize):
+def query_to_df(query: string, conn_db: cx_Oracle.Connection, arraysize: smallint):
     """Do the query and transform the result to a dataframe
        parameters:
        *) query: string with a query statetement
@@ -53,7 +53,7 @@ def query_to_df(query, conn_db, arraysize):
     data = pd.DataFrame.from_records(r, columns=cols)
     return(data)
 
-def execute(statement, conn_db):
+def execute(statement: string, conn_db: cx_Oracle.Connection):
     """execute a statement
        parameters:
        *) statement: string with a statetement
@@ -64,7 +64,7 @@ def execute(statement, conn_db):
     conn_db.commit()
     cur.close()
 
-def insert_multiple(table_name, df, conn_db, batch_size=5000):
+def insert_multiple(table_name: string, df: pd.DataFrame, conn_db: cx_Oracle.Connection, batch_size=5000):
     """multiple insert
        parameters:
        *) table_name : table_name to load
@@ -88,7 +88,7 @@ def insert_multiple(table_name, df, conn_db, batch_size=5000):
         i = i + 1
     cur.close()
 
-def open_connection(conn_db):
+def open_connection(conn_db: cx_Oracle.Connection):
     """Clone the connection
     """
     conn_db.close()
