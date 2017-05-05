@@ -88,7 +88,7 @@ def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connec
         i = i + 1
     cur.close()
 
-def open_connection(conn_db: cx_Oracle.Connection):
+def close_connection( conn_db: cx_Oracle.Connection ):
     """Close the connection
        parameters:
        *) conn_db : connection object 
