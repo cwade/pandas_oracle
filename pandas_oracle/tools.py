@@ -59,9 +59,9 @@ def execute(statement, conn_db):
        *) statement: string with a statetement
        *) conn_db : a connection object from cx_oracle or open_connection
     """
-    cur = con.cursor()
+    cur = conn_db.cursor()
     cur.execute(statement)
-    con.commit()
+    conn_db.commit()
     cur.close()
 
 def insert_multiple(table_name, df, conn_db, batch_size=5000):
