@@ -31,13 +31,13 @@ Sample usage::
     query1 = "select id, name from students where name like '%Oscar%'"
     query2 = "select class,avg(age) from students group by class"
     ## opening conn
-    conn = oradf.open_connection(query,"config.yml")
+    conn = oradf.open_connection("config.yml")
     ## passing the conn object to the query_to_df 
     df1 = oradf.query_to_df(query,conn,10000)
     ## passing the conn object to the query_to_df , without to open again
     df2 = oradf.query_to_df(query2,conn,10)
     ## close connection
-    oradf.clone_connection(conn)
+    oradf.close_connection(conn)
       
 
 Returns::
