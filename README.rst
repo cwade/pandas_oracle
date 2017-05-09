@@ -16,7 +16,7 @@ Installation
 
 ::
 
-    pip install oracle_db_tools
+    pip install pandas_oracle
 
 
 ----
@@ -26,10 +26,19 @@ Overview
 
 Sample usage::
 
-    from pandas_oracle.tools import query_to_df
-
-    query = "select id, name from students where name like '%Oscar%'"
-    query_to_df(query, "config.yml")
+    from pandas_oracle.tools as oradf
+  
+    query1 = "select id, name from students where name like '%Oscar%'"
+    query2 = "select class,avg(age) from students group by class"
+    ## opening conn
+    conn = oradf.open_connection("config.yml")
+    ## passing the conn object to the query_to_df 
+    df1 = oradf.query_to_df(query,conn,10000)
+    ## passing the conn object to the query_to_df , without to open again
+    df2 = oradf.query_to_df(query2,conn,10)
+    ## close connection
+    oradf.close_connection(conn)
+      
 
 Returns::
     
@@ -49,6 +58,7 @@ Sample config file::
     database:
         username: "OGROUCH"
         password: "SECR3TPASSWORD"
+        sysdba: "n"
         host: >
                 (DESCRIPTION =
                         (ADDRESS = (PROTOCOL = TCP)
@@ -63,3 +73,5 @@ Sample config file::
 If you don't wish to store your password in the configuration file, you can 
 omit that line. If a password isn't present in the configuration file, you 
 will be prompted for it at runtime.
+You could choose to run as SYSDBA role or not, if the yaml file does not
+includes the "sysdba" property, the api will connect like a normal user.

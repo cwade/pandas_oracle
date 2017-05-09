@@ -1,6 +1,7 @@
 database:
     username: "OGROUCH"
     password: "SECR3TPASSWORD"
+    sysdba: "n"
     host: >
             (DESCRIPTION =
                     (ADDRESS = (PROTOCOL = TCP)
