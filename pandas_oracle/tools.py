@@ -10,18 +10,18 @@ def open_connection(config_file: str):
        based on yaml file.
        config_file: name of parameter file
     """ 
-    ##open configuration file */
+    ## open configuration file */
     with open(config_file, 'r') as ymlfile:
         cfg = yaml.load(ymlfile)
-    ##loading variable usernamem, host
+    ##loading variable username, host
     user = cfg['database']['username']
     host = cfg['database']['host']
-    ##verify if sysdba conn or not
+    ## verify if sysdba conn or not
     if 'sysdba' in cfg['database']:
             sysdba = cfg['database']['sysdba']
     else:
             sysdba = 'n'
-    ##loading password or ask
+    ## loading password or ask
     if 'password' in cfg['database']:
             pwd = cfg['database']['password']
     else:
@@ -33,20 +33,20 @@ def open_connection(config_file: str):
     else :
             return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host)))
 
-def query_to_df(query: str, conn_db: cx_Oracle.Connection, arraysize: int):
-    """Do the query and transform the result to a dataframe
+def query_to_df(query: str, conn_db: cx_Oracle.Connection, arraysize=10000):
+    """Run the query and transform the result to a dataframe
        parameters:
        *) query: str with a query statetement
-       *) conn_db : a connection object from cx_oracle or open_connection
-       *) arraysize : arrayfetch size
+       *) conn_db: a connection object from cx_oracle or open_connection
+       *) arraysize: arrayfetch size
     """ 
     cur = conn_db.cursor()
-    ##setting arraysize
+    ## setting arraysize
     if arraysize :
        cur.arraysize = arraysize
-    ##execute query 
+    ## execute query 
     cur.execute(query)
-    ##fetch all row
+    ## fetch all rows
     r = cur.fetchall()
     cols = [n[0] for n in cur.description]
     cur.close()
@@ -57,25 +57,33 @@ def execute(statement: str, conn_db: cx_Oracle.Connection):
     """execute a statement
        parameters:
        *) statement: str with a statetement
-       *) conn_db : a connection object from cx_oracle or open_connection
+       *) conn_db: a connection object from cx_oracle or open_connection
     """
     cur = conn_db.cursor()
     cur.execute(statement)
     conn_db.commit()
     cur.close()
 
-def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connection, batch_size=5000):
+def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connection, batch_size=10000):
     """multiple insert
        parameters:
-       *) table_name : table_name to load
-       *) df : dataframe to load
-       *) conn_db : a connection object from cx_oracle or open_connection
-       *) batch_size : batch size of commit
+       *) table_name: table_name you're inserting into
+       *) df: dataframe being inserted into table
+       *) conn_db: a connection object from cx_oracle or open_connection
+       *) batch_size: batch size of commit (number of rows)
     """
     cur = conn_db.cursor()
     sql = "INSERT INTO {0} ({1}) VALUES (:{2})".format(table_name,
                                                       ', '.join(df.columns),
                                                       ', :'.join(list(map(str,range(1, len(df.columns)+1)))))
+
+    # Get column types so they can be specified before the insert statement.
+    # This avoids an error when inserting dates 
+    # See http://cx-oracle.readthedocs.io/en/latest/cursor.html#Cursor.execute
+    cur.execute('select * from {} where 1=0'.format(table_name))
+    db_types = (d[1] for d in cur.description)
+    cur.setinputsizes(*db_types)
+
     i = 0
     while ((i * batch_size) < len(df)):
         rows = []
@@ -84,11 +92,11 @@ def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connec
         for x in df.ix[min:max,:].values:
             rows.append([None if pd.isnull(y) else y for y in x])
         cur.executemany(sql, rows)
-        con.commit()
+        conn_db.commit()
         i = i + 1
     cur.close()
 
-def close_connection( conn_db: cx_Oracle.Connection ):
+def close_connection(conn_db: cx_Oracle.Connection):
     """Close the connection
        parameters:
        *) conn_db : connection object 
