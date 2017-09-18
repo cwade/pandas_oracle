@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='pandas_oracle',
-    version='1.2.0',
+    version='1.3.0',
     description='Tools for working with an Oracle database from Pandas',
     long_description=long_description,
     url='https://github.com/cwade/pandas_oracle',

@@ -81,3 +81,5 @@ will be prompted for it at runtime.
 You can choose whether or not to connect with the SYSDBA role. If the yaml 
 file doesn't include the "sysdba" property, it will connect like a normal 
 user.
+
+As of version 1.3.0, the _cc methods have been added (query_to_df_cc, execute_cc, and insert_multiple_cc). These methods get passed a config file rather than a connection object and take care of opening and closing the connection for you.
