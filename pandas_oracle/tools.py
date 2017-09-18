@@ -120,7 +120,7 @@ def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connec
     cur.close()
 
 def insert_multiple_cc(table_name: str, df: pd.DataFrame, config_file: str, batch_size=10000):
-        """multiple insert
+    """multiple insert
        parameters:
        *) table_name: table_name you're inserting into
        *) df: dataframe being inserted into table
