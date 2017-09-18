@@ -53,6 +53,18 @@ def query_to_df(query: str, conn_db: cx_Oracle.Connection, arraysize=10000):
     data = pd.DataFrame.from_records(r, columns=cols)
     return(data)
 
+def query_to_df_cc(query: str, config_file: str, arraysize=10000):
+    """Run the query and transform the result to a dataframe
+       parameters:
+       *) query: str with a query statetement
+       *) config_file: yaml config file specifying db information
+       *) arraysize: arrayfetch size
+    """ 
+    conn = open_connection(config_file)
+    df = query_to_df(query, conn, arraysize)
+    close_connection(conn)
+    return(df)
+
 def execute(statement: str, conn_db: cx_Oracle.Connection):
     """execute a statement
        parameters:
@@ -63,6 +75,17 @@ def execute(statement: str, conn_db: cx_Oracle.Connection):
     cur.execute(statement)
     conn_db.commit()
     cur.close()
+
+def execute_cc(statement: str, config_file: str):
+    """execute a statement
+       parameters:
+       *) statement: str with a statetement
+       *) config_file: yaml config file specifying db information
+    """
+    conn = open_connection(config_file)
+    execute(statement, conn)
+    close_connection(conn)
+    return()
 
 def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connection, batch_size=10000):
     """multiple insert
@@ -95,6 +118,19 @@ def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connec
         conn_db.commit()
         i = i + 1
     cur.close()
+
+def insert_multiple_cc(table_name: str, df: pd.DataFrame, config_file: str, batch_size=10000):
+        """multiple insert
+       parameters:
+       *) table_name: table_name you're inserting into
+       *) df: dataframe being inserted into table
+       *) config_file: yaml config file specifying db information
+       *) batch_size: batch size of commit (number of rows)
+    """
+    conn = open_connection(config_file)
+    insert_multiple(table_name, df, conn, batch_size)
+    close_connection(conn)
+    return()
 
 def close_connection(conn_db: cx_Oracle.Connection):
     """Close the connection
