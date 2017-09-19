@@ -85,7 +85,7 @@ def execute_cc(statement: str, config_file: str):
     conn = open_connection(config_file)
     execute(statement, conn)
     close_connection(conn)
-    return()
+    return
 
 def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connection, batch_size=10000):
     """multiple insert
@@ -112,7 +112,7 @@ def insert_multiple(table_name: str, df: pd.DataFrame, conn_db: cx_Oracle.Connec
         rows = []
         min = i*batch_size
         max = ((i+1)*batch_size)-1
-        for x in df.ix[min:max,:].values:
+        for x in df.loc[min:max,:].values:
             rows.append([None if pd.isnull(y) else y for y in x])
         cur.executemany(sql, rows)
         conn_db.commit()
@@ -130,7 +130,7 @@ def insert_multiple_cc(table_name: str, df: pd.DataFrame, config_file: str, batc
     conn = open_connection(config_file)
     insert_multiple(table_name, df, conn, batch_size)
     close_connection(conn)
-    return()
+    return
 
 def close_connection(conn_db: cx_Oracle.Connection):
     """Close the connection
