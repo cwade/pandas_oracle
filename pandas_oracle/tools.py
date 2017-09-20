@@ -49,8 +49,8 @@ def query_to_df(query: str, conn_db: cx_Oracle.Connection, arraysize=10000):
     ## fetch all rows
     r = cur.fetchall()
     cols = [n[0] for n in cur.description]
-    cur.close()
     data = pd.DataFrame.from_records(r, columns=cols)
+    cur.close()
     return(data)
 
 def query_to_df_cc(query: str, config_file: str, arraysize=10000):
