@@ -33,6 +33,16 @@ def open_connection(config_file: str):
     else :
             return(cx_Oracle.connect("{}/{}@{}".format(user, pwd, host)))
 
+def fix_lob(row):
+    """Bug fix taken from http://kamushin.github.io/learning/python_oracle.html
+    """
+    def convert(col):
+        if isinstance(col, cx_Oracle.LOB):
+            return str(col)
+        else:
+            return col
+    return [convert(c) for c in row]
+
 def query_to_df(query: str, conn_db: cx_Oracle.Connection, arraysize=10000):
     """Run the query and transform the result to a dataframe
        parameters:
@@ -47,7 +57,7 @@ def query_to_df(query: str, conn_db: cx_Oracle.Connection, arraysize=10000):
     ## execute query 
     cur.execute(query)
     ## fetch all rows
-    r = cur.fetchall()
+    r = [fix_lob(row) for row in cur]
     cols = [n[0] for n in cur.description]
     data = pd.DataFrame.from_records(r, columns=cols)
     cur.close()
