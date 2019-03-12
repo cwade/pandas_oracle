@@ -26,22 +26,22 @@ Overview
 
 Sample usage::
 
-    from pandas_oracle.tools as oradf
+    import pandas_oracle.tools as pt
   
     query1 = "select id, name from students where name like '%Oscar%'"
     query2 = "select class, avg(age) from students group by class"
     
     ## opening conn
-    conn = oradf.open_connection("config.yml")
+    conn = pt.open_connection("config.yml")
     
     ## passing the conn object to the query_to_df 
-    df1 = oradf.query_to_df(query, conn, 10000)
+    df1 = pt.query_to_df(query, conn, 10000)
     
     ## passing the conn object to the query_to_df , without to open again
-    df2 = oradf.query_to_df(query2, conn, 10)
+    df2 = pt.query_to_df(query2, conn, 10)
     
     ## close connection
-    oradf.close_connection(conn)
+    pt.close_connection(conn)
       
 
 Returns::
