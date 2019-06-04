@@ -12,7 +12,7 @@ def open_connection(config_file: str):
     """ 
     ## open configuration file */
     with open(config_file, 'r') as ymlfile:
-        cfg = yaml.load(ymlfile)
+        cfg = yaml.load(ymlfile, yaml.FullLoader)
     ##loading variable username, host
     user = cfg['database']['username']
     host = cfg['database']['host']
